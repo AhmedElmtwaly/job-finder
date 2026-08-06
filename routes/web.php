@@ -17,6 +17,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // لوحة التحكم العامة
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // صفحة About
+    Route::view('/about', 'about')->name('about');
+
+    // صفحة Contact
+    Route::view('/contact', 'contact')->name('contact');
+
     // الملف الشخصي
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -31,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // التقديم على الوظائف (للـ Seeker)
     Route::get('/jobs/{job}/apply', [ApplicationController::class, 'create'])->name('jobs.apply');
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('jobs.store.application');
-    
+
     // تتبع الطلبات الخاصة بالباحث
     Route::get('/my-applications', [ApplicationController::class, 'index'])->name('applications.index');
 
@@ -43,7 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // روابط الشركات والـ Admin لإدارة الوظائف والمتقدمين
 Route::middleware(['auth', 'verified'])->prefix('company')->name('company.')->group(function () {
-    
+
     // إدارة الوظائف (Add, Update, Delete باستخدام Resource Route)
     Route::resource('jobs', JobController::class);
 
